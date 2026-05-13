@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title="Player Comparison", page_icon="🏀", layout="wide")
 
-st.title("⚔️ Player Comparison")
+st.title("Player Comparison")
 
 @st.cache_data(ttl=3600)
 def get_all_players():

@@ -5,7 +5,7 @@ import plotly.express as px
 
 st.set_page_config(page_title="League Leaders", page_icon="🏀", layout="wide")
 
-st.title("🏆 League Leaders")
+st.title("League Leaders")
 
 stat_options = {
     "Points": "PTS",
