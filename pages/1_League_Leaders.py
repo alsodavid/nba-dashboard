@@ -1,11 +1,11 @@
 import streamlit as st
-import pandas as pd
 from data import get_player_stats, last_updated
 import plotly.express as px
 
 st.set_page_config(page_title="League Leaders", page_icon="🏀", layout="wide")
 
 st.title("League Leaders")
+st.caption(f"Data: NBA API, season 2025-26. Last updated {last_updated()}.")
 
 stat_options = {
     "Points": "PTS",
@@ -19,7 +19,7 @@ selected_stat_label = st.selectbox("Select a stat category:", list(stat_options.
 selected_stat = stat_options[selected_stat_label]
 
 with st.spinner("Loading data..."):
-    df = get_player_stats
+    df = get_player_stats()
 
 df = df.sort_values(by=selected_stat, ascending=False).reset_index(drop=True)
 df.insert(0, "RANK", df.index + 1)

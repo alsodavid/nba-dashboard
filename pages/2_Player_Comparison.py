@@ -1,20 +1,21 @@
 import streamlit as st
-import pandas as pd
 from data import get_player_stats, last_updated
 import plotly.graph_objects as go
 
 st.set_page_config(page_title="Player Comparison", page_icon="🏀", layout="wide")
 
 st.title("Player Comparison")
+st.caption(f"Data: NBA API, season 2025-26. Last updated {last_updated()}.")
 
 with st.spinner("Loading player data..."):
-    df = get_player_stats
+    df = get_player_stats()
 
 player_names = sorted(df["PLAYER_NAME"].tolist())
 
 col1, col2 = st.columns(2)
 with col1:
-    player1 = st.selectbox("Select Player 1:", player_names)
+    default1 = player_names.index("Victor Wembanyama") if "Victor Wembanyama" in player_names else 0
+    player1 = st.selectbox("Select Player 1:", player_names, index=default1)
 with col2:
     player2 = st.selectbox("Select Player 2:", player_names, index=1)
 

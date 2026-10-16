@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 from data import get_team_stats, last_updated
 import plotly.express as px
 
@@ -9,7 +8,7 @@ st.caption(f"Data: NBA API, season 2025-26. Last updated {last_updated()}.")
 st.title("Team Stats")
 
 with st.spinner("Loading team data..."):
-    df = get_team_stats
+    df = get_team_stats()
 
 stat_options = {
     "Points": "PTS",
