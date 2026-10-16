@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from nba_api.stats.endpoints import leaguedashplayerstats
+from data import get_player_stats, last_updated
 import plotly.express as px
 
 st.set_page_config(page_title="League Leaders", page_icon="🏀", layout="wide")
@@ -18,14 +18,8 @@ stat_options = {
 selected_stat_label = st.selectbox("Select a stat category:", list(stat_options.keys()))
 selected_stat = stat_options[selected_stat_label]
 
-@st.cache_data(ttl=3600)
-def get_leaders():
-    stats = leaguedashplayerstats.LeagueDashPlayerStats(per_mode_detailed="PerGame")
-    df = stats.get_data_frames()[0]
-    return df
-
 with st.spinner("Loading data..."):
-    df = get_leaders()
+    df = get_player_stats
 
 df = df.sort_values(by=selected_stat, ascending=False).reset_index(drop=True)
 df.insert(0, "RANK", df.index + 1)

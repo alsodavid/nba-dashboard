@@ -1,20 +1,14 @@
 import streamlit as st
 import pandas as pd
-from nba_api.stats.endpoints import leaguedashplayerstats
+from data import get_player_stats, last_updated
 import plotly.graph_objects as go
 
 st.set_page_config(page_title="Player Comparison", page_icon="🏀", layout="wide")
 
 st.title("Player Comparison")
 
-@st.cache_data(ttl=3600)
-def get_all_players():
-    stats = leaguedashplayerstats.LeagueDashPlayerStats(per_mode_detailed="PerGame")
-    df = stats.get_data_frames()[0]
-    return df
-
 with st.spinner("Loading player data..."):
-    df = get_all_players()
+    df = get_player_stats
 
 player_names = sorted(df["PLAYER_NAME"].tolist())
 

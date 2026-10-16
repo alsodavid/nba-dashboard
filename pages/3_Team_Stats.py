@@ -1,19 +1,15 @@
 import streamlit as st
 import pandas as pd
-from nba_api.stats.endpoints import leaguedashteamstats
+from data import get_team_stats, last_updated
 import plotly.express as px
 
 st.set_page_config(page_title="Team Stats", page_icon="🏀", layout="wide")
+st.caption(f"Data: NBA API, season 2025-26. Last updated {last_updated()}.")
 
 st.title("Team Stats")
 
-@st.cache_data(ttl=3600)
-def get_team_stats():
-    stats = leaguedashteamstats.LeagueDashTeamStats(per_mode_detailed="PerGame")
-    df = stats.get_data_frames()[0]
-    return df
 with st.spinner("Loading team data..."):
-    df=get_team_stats()
+    df = get_team_stats
 
 stat_options = {
     "Points": "PTS",
